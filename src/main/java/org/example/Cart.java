@@ -4,30 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    public List<Taco> cart = new ArrayList<>();
+    private List<Billable> items = new ArrayList<>();
 
-    public void addToCart(Taco product){
-        cart.add(product);
+    public void addToCart(Billable item){
+        items.add(item);
     }
-
-    public void removeFromCart(Taco product){
-        cart.remove(product);
+    public void removeFromCart(Billable item){
+        items.remove(item);
     }
-
     public double getCartTotal() {
         double total = 0;
-        for(Taco p : cart){
-            total += p.getPrice();
+        for(Billable item : items){
+            total += item.getPrice();
         }
         return total;
     }
     public void displayCart(){
-        if(cart.isEmpty()){
+        if(items.isEmpty()){
             System.out.println("Cart is currently empty.");
             return;
         }
-        for(Taco product : cart){
-            System.out.println("SKU: " + product.getSku() + " | " + product.getName() + " | $" + product.getPrice());
+        System.out.println("--- CURRENT ORDER ---");
+        for(Billable item : items){
+            System.out.println(item.toString());
+            System.out.println("---------------------");
         }
+        System.out.printf("ORDER TOTAL: $%.2f\n", getCartTotal());
+    }
+
+    public List<Billable> getItems() {
+        return items;
     }
 }

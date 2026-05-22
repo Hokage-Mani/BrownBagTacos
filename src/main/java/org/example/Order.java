@@ -1,6 +1,11 @@
 package org.example;
+import java.util.List;
 
-public record Order {
+import java.time.LocalDateTime;
+
+public class Order {
     private String customerName;
-    private String
+    private PaymentType paymentMethod;
+    private LocalDateTime orderTime;
+    private List<Billable> cartItems;
 }

@@ -5,10 +5,10 @@ public enum TacoSize {
     PLATE_OF_3(9.00),
     BURRITO(8.00);
 
+    private final double basePrice;
     TacoSize(double basePrice) {
         this.basePrice = basePrice;
     }
-
     public double getBasePrice(){
         return basePrice;
     }
