@@ -72,7 +72,7 @@ public class Menu {
         gloom.addTopping(new Topping("Charred Peppers", false, 0.00));
         gloom.addTopping(new Topping("Black Beans", false, 0.00));
         gloom.addTopping(new Topping("Gloom Smoke Sauce", false, 0.00));
-        gloom.setHasQueso(true); // Smokey queso!
+        gloom.setHasQueso(true);
         signatureMenu.add(gloom);
     }
     public List<Topping> getRegularToppings() { return regularToppings; }
