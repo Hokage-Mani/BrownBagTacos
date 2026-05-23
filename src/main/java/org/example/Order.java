@@ -11,10 +11,9 @@ public class Order {
     private List<Billable> cartItems;
 
 
-    public Order(String customerName, PaymentType paymentMethod, LocalDateTime orderTime, List<Billable> cartItems) {
+    public Order(String customerName, PaymentType paymentMethod, List<Billable> cartItems) {
         this.customerName = customerName;
         this.paymentMethod = paymentMethod;
-        this.orderTime = LocalDateTime.now();
         this.cartItems = cartItems;
     }
 
