@@ -21,6 +21,7 @@ public class HomeScreen {
             System.out.println("3. Add Chips & Salsa ($1.50)");
             System.out.println("4. View Current Cart");
             System.out.println("5. Checkout");
+            System.out.println("99) Exit Application!");
             System.out.print("Select an option: ");
 
 
@@ -78,6 +79,7 @@ public class HomeScreen {
                     }
 
 
+
                     System.out.println("\n--- PLEASE REVIEW YOUR ORDER ---");
                     System.out.println(finalOrder.generateReceipt());
 
@@ -94,9 +96,15 @@ public class HomeScreen {
                         cart.getItems().clear();
                     }
                     break;
+                case "99":
+                    System.out.println("\nThank you for eating with us. Come again!\n");
+                    inOrderMenu = false;
+                    //TODO double check if this is properly cased so that it doesn't ruin the boolean.
+                    break;
                 default:
                     System.out.println("Invalid selection. Please try again.");
             }
+
         }
 
         scanner.close();
