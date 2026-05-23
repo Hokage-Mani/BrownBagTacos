@@ -17,7 +17,7 @@ public class HomeScreen {
         while (isOrdering) {
             System.out.println("\n=== MAIN MENU ===");
             System.out.println("1. Order a Signature Taco");
-            System.out.println("2. Build a Custom Taco");
+            System.out.println("2. Open Order Screen");
             System.out.println("3. Add Chips & Salsa ($1.50)");
             System.out.println("4. View Current Cart");
             System.out.println("5. Checkout");
@@ -34,7 +34,16 @@ public class HomeScreen {
                     break;
 
                 case "2":
-                    System.out.println("Opening Custom Taco Builder...");
+                    boolean inOrderMenu = true;
+                    while(inOrderMenu){
+                        System.out.println("Opening Order Builder...");
+                        System.out.println("A) Add Taco");//TODO add select shell, size, toppings
+                        System.out.println("D Add Drink");//TODO add select size & flavor
+                        System.out.println("C) Confirm selections & Home to checkout");
+                        System.out.println("X) Cancel selections & return Home");
+                        //TODO differentiate if it's possible to keep items selected and return home-
+                        //TODO -and or cancel selections and return home.
+                    }
                     break;
 
                 case "3":
