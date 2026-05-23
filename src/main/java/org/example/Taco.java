@@ -6,7 +6,7 @@ import java.util.List;
 public class Taco implements Billable{
 private TacoSize size;
 private ShellType shell;
-private String listToppings;
+//private String listToppings;
 private List<Topping> toppings;
     private boolean hasSalsa;
     private boolean hasQueso;
@@ -17,6 +17,9 @@ private List<Topping> toppings;
         this.toppings = new ArrayList<>();
         this.hasSalsa = false;
         this.hasQueso = false;
+    }
+    public void addTopping(Topping topping) {
+        this.toppings.add(topping);
     }
     public double calculatePrice() {
         double total = size.getBasePrice();

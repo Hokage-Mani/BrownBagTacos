@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class Main {
     static void main() {
 // 1. Create the pop-out window (JFrame)
-        JFrame frame = new JFrame("TACO-li-cious POS");
+        JFrame frame = new JFrame("Brown Bag Tacos POS");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
