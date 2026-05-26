@@ -89,7 +89,6 @@ public class Order {
 //
 //        return receipt.toString();
 //    }
-    //TODO testing out built-in depencies here
 public String generateReceipt() {
     AsciiTable table = new AsciiTable();
     table.addRule();

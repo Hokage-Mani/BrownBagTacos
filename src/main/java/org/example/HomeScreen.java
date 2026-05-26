@@ -14,15 +14,15 @@ public class HomeScreen {
 
         System.out.println("Welcome to the Brown Bag Tacos POS!");
 
-
         while (isOrdering) {
-            System.out.println("\n=== MAIN MENU ===");
-            System.out.println("1. Order a Signature Taco");
-            System.out.println("2. Open Order Screen");
-            System.out.println("3. Add Chips & Salsa ($1.50)");
-            System.out.println("4. View Current Cart");
-            System.out.println("5. Checkout");
-            System.out.println("99) Exit Application!");
+            System.out.println(ConsoleColors.CYAN + "\n=== MAIN MENU ===" + ConsoleColors.RESET);
+            System.out.println("1.) Order a Signature Taco");
+            System.out.println("2.) Build a Custom Order");
+            System.out.println("3.) Add Chips & Salsa ($1.50)");
+            System.out.println("4.) View Current Cart");
+            System.out.println("5.) Checkout");
+            System.out.println("6.) View Past Receipts");
+            System.out.println("99.) Exit Application!");
             System.out.print("Select an option: ");
 
             String choice = scanner.nextLine();
@@ -57,16 +57,14 @@ public class HomeScreen {
                     cart.addToCart(tacoForCart);
                     System.out.println(tacoForCart.getname() + " added to cart!");
                     break;
-
                 case "2":
                     boolean inOrderMenu = true;
                     while (inOrderMenu) {
-                        System.out.println("Starting Order...");
+                        System.out.println("Creating Order...");
                         System.out.println("A) Add Taco");
                         System.out.println("D Add Drink");
                         System.out.println("C) Confirm selections & Home to checkout");
                         System.out.println("X) Cancel selections & return Home");
-
                         String orderChoice = scanner.nextLine().trim().toUpperCase();
                         switch (orderChoice) {
                             case "A":
@@ -85,10 +83,13 @@ public class HomeScreen {
                                         if (sizeChoice >= 1 && sizeChoice <= TacoSize.values().length) {
                                             selectedSize = TacoSize.values()[sizeChoice - 1];
                                         } else {
-                                            System.out.println("[ERROR] Please select a valid number from the menu.");
+                                            System.out.println(ConsoleColors.RED + "Invalid input. " +
+                                                    "Enter a number from the menu." + ConsoleColors.RESET);
+                                            ;
                                         }
                                     } catch (NumberFormatException e) {
-                                        System.out.println("[ERROR] Invalid input. Please type a number.");
+                                        System.out.println(ConsoleColors.RED + "Invalid input. " +
+                                                "Please type a number." + ConsoleColors.RESET);
                                     }
                                 }
                                 System.out.println("\nSelecting Shell: ");
@@ -105,10 +106,12 @@ public class HomeScreen {
                                         if (shellChoice >= 1 && shellChoice <= ShellType.values().length) {
                                             selectedShell = ShellType.values()[shellChoice - 1];
                                         } else {
-                                            System.out.println("[ERROR] Please select a valid number from the menu.");
+                                            System.out.println(ConsoleColors.RED + "Invalid input. " +
+                                                    "Enter number from the menu." + ConsoleColors.RESET);
                                         }
                                     } catch (NumberFormatException e) {
-                                        System.out.println("[ERROR] Invalid input. Please type a number.");
+                                        System.out.println(ConsoleColors.RED + "Invalid input. " +
+                                                "Please type a number." + ConsoleColors.RESET);
                                     }
                                 }
                                 CustomTaco taco = new CustomTaco(selectedSize, selectedShell);
@@ -132,14 +135,16 @@ public class HomeScreen {
                                             toppingOptions = false;
                                             break;
                                         default:
-                                            System.out.println("[ERROR] Invalid choice. Please enter 1, 2, or X.");
+                                            System.out.println("Invalid choice. Please enter 1, 2, or X.");
+                                            System.out.println(ConsoleColors.RED + "Invalid input. " +
+                                                    "Please enter: 1, 2, or X." + ConsoleColors.RESET);
                                     }
                                 }
                                 System.out.println("\n--- Final Touches ---");
                                 boolean validCovering = false;
 
                                 while (!validCovering) {
-                                    System.out.print("Add a covering? (S = Salsa, Q = Queso, B = Both, N = None): ");
+                                    System.out.print("Add sauce covering? (S = Salsa, Q = Queso, B = Both, N = None): ");
                                     String coveringChoice = scanner.nextLine().trim().toUpperCase();
                                     switch (coveringChoice) {
                                         case "B":
@@ -163,12 +168,13 @@ public class HomeScreen {
                                             validCovering = true;
                                             break;
                                         default:
-                                            System.out.println("[ERROR] Invalid input. Please type S, Q, B, or N.");
+                                            System.out.println(ConsoleColors.RED + "[ERROR] Invalid input. " +
+                                                    "Enter: S, Q, B, or N." + ConsoleColors.RESET);
                                             break;
                                     }
                                 }
                                 cart.addToCart(taco);
-                                System.out.println("\nTaco added to your cart!");
+                                System.out.println(ConsoleColors.GREEN + "\nTaco added to your cart!" + ConsoleColors.RESET);
                                 break;
                             case "D":
                                 System.out.println("Selecting Drink(S)...");
@@ -187,7 +193,7 @@ public class HomeScreen {
                                 Drinks drink = new Drinks(selectedDrink, selectedFlavor);
                                 cart.addToCart(drink);
                                 System.out.println("Added " + selectedDrink + " " + selectedFlavor +
-                                        "to your cart!");
+                                        " to your cart!");
                                 break;
                             case "C":
                                 System.out.println("Returning to Home Screen...");
@@ -199,7 +205,8 @@ public class HomeScreen {
                                 inOrderMenu = false;
                                 break;
                             default:
-                                System.out.println("Invalid option. Try again.");
+                                System.out.println(ConsoleColors.RED + "[ERROR] Invalid input. Try again" +
+                                        ConsoleColors.RESET);
                         }
                     }
                     break;
@@ -217,7 +224,7 @@ public class HomeScreen {
                         System.out.println("Your cart is empty! Please add items before checking out.");
                         break;
                     }
-                    System.out.println("\n=== CHECKOUT ===");
+                    System.out.println(ConsoleColors.CYAN + "\n=== CHECK OUT ===" + ConsoleColors.RESET);
                     System.out.print("Enter Customer Name: ");
                     String customerName = scanner.nextLine();
                     System.out.print("Enter Payment Method (Cash, Credit, Debit): ");
@@ -226,7 +233,7 @@ public class HomeScreen {
                     Order finalOrder = new Order(customerName, paymentMethod, new ArrayList<>(cart.getItems()));
                     finalOrder.setOrderTime(java.time.LocalDateTime.now());
                     if (!finalOrder.isValidOrder()) {
-                        System.out.println("\n[ERROR] Invalid Order!");
+                        System.out.println(ConsoleColors.RED + "Invalid Order! " + ConsoleColors.RESET);
                         System.out.println("You have 0 tacos, you MUST purchase chips & salsa or a drink.");
                         System.out.println("Returning to main menu...");
                         break;
@@ -244,13 +251,19 @@ public class HomeScreen {
                         cart.getItems().clear();
                     }
                     break;
+                case "6":
+                    System.out.println(ConsoleColors.CYAN + "\n=== PAST RECEIPTS ===" + ConsoleColors.RESET);
+                    FileManager.displayReceipts();
+                    System.out.println("=====================\n");
+                    break;
                 case "99":
                     System.out.println("\nThank you for eating with us. Come again!\n");
                     isOrdering = false;
                     //TODO double check if this is properly cased so that it doesn't ruin the boolean.
                     break;
                 default:
-                    System.out.println("Invalid selection. Please try again.");
+                    System.out.println(ConsoleColors.RED + "[ERROR] Invalid selection. " +
+                            "Please try again!" + ConsoleColors.RESET);
             }
         }
         scanner.close();
@@ -268,28 +281,39 @@ public class HomeScreen {
     }
 
     private static void pickTopping(List<Topping> list, Taco taco, Scanner scanner) {
-        System.out.println("\nSelect a topping:");
+        System.out.println("\nSelect topping(s) separated by commas (e.g. 1, 3, 5):");
         for (int i = 0; i < list.size(); i++) {
             Topping t = list.get(i);
             System.out.printf("%d) %s%s\n", i + 1, t.name(), t.isPremium() ? " (+$" + t.extraCost() + ")" : "");
         }
-        System.out.println((list.size() + 1) + ") Go Back");
+        System.out.println((list.size() + 1) + ") Go Back / Done");
         boolean validSelection = false;
         while (!validSelection) {
-            System.out.print("Choice: ");
-            try {
-                int choice = Integer.parseInt(scanner.nextLine());
-                if (choice == list.size() + 1) {
-                    validSelection = true;
-                } else if (choice >= 1 && choice <= list.size()) {
-                    taco.addTopping(list.get(choice - 1));
-                    System.out.println(list.get(choice - 1).name() + " added!");
-                    validSelection = true;
-                } else {
-                    System.out.println("[ERROR] Please select a valid number from the list.");
+            System.out.print("Choice(s): ");
+            String input = scanner.nextLine().trim();
+            if (input.equals(String.valueOf(list.size() + 1))) {
+                validSelection = true;
+                break;
+            }
+            String[] choices = input.split(",");
+            int addedCount = 0;
+            for (String choiceStr : choices) {
+                try {
+                    int choice = Integer.parseInt(choiceStr.trim());
+
+                    if (choice >= 1 && choice <= list.size()) {
+                        taco.addTopping(list.get(choice - 1));
+                        System.out.println(ConsoleColors.GREEN + "  -> " + list.get(choice - 1).name() + " added!" + ConsoleColors.RESET);
+                        addedCount++;
+                    } else if (choice != list.size() + 1) {
+                        System.out.println(ConsoleColors.RED + "[ERROR] '" + choice + "' is not on the list." + ConsoleColors.RESET);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(ConsoleColors.RED + "[ERROR] '" + choiceStr.trim() + "' is not a valid number." + ConsoleColors.RESET);
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("[ERROR] Invalid input. Please type a number.");
+            }
+            if (addedCount > 0) {
+                validSelection = true;
             }
         }
     }

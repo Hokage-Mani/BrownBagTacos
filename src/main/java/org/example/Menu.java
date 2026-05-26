@@ -47,8 +47,7 @@ public class Menu {
 
     private void loadSignatureTacos() {
         //Brown Bag Classic
-        SignatureTaco classic = new SignatureTaco("Brown Bag Classic (15 Tacos- Braised Beef + onions, " +
-                "cilantro with white rice & whole pinto beans)", TacoSize.PARTY_PACK,
+        SignatureTaco classic = new SignatureTaco("Brown Bag Classic (15 Tacos) our fan favorite delight!)", TacoSize.PARTY_PACK,
                 ShellType.HARD_SHELL);
         classic.addTopping(new Topping("Braised Beef", true, 0.00));
         classic.addTopping(new Topping("Onions", false, 0.00));
@@ -58,8 +57,7 @@ public class Menu {
         signatureMenu.add(classic);
 
         //Every Meat Burrito
-        SignatureTaco meatBurrito = new SignatureTaco("Every Meat Burrito (Lamb, Camel, Emu, Bison with " +
-                "Rice & Salsa Roja)", TacoSize.BURRITO, ShellType.FLOUR);
+        SignatureTaco meatBurrito = new SignatureTaco("Every Meat Burrito- One of One Exotic Flavors!)", TacoSize.BURRITO, ShellType.FLOUR);
         meatBurrito.addTopping(new Topping("Lamb, Camel, Emu, Bison, Python, Wild Boar",
                 true, 10.00));
         meatBurrito.addTopping(new Topping("Rice", false, 0.00));
@@ -67,8 +65,7 @@ public class Menu {
         signatureMenu.add(meatBurrito);
 
         //Gloom Depths Taco (3)
-        SignatureTaco gloom = new SignatureTaco("Gloom Depths Taco (BBQ Jackfruit with pulled cabbage" +
-                ", charred peppers, black beans & Gloom Smoke sauce)", TacoSize.PLATE_OF_3, ShellType.CORN);
+        SignatureTaco gloom = new SignatureTaco("Gloom Depths Taco- To Fuel any brave Hero)", TacoSize.PLATE_OF_3, ShellType.CORN);
         gloom.addTopping(new Topping("BBQ Jackfruit", true, 8.99));
         gloom.addTopping(new Topping("Pulled Cabbage", false, 0.00));
         gloom.addTopping(new Topping("Charred Peppers", false, 0.00));

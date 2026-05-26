@@ -22,4 +22,25 @@ public class FileManager {
             System.out.println("Error saving receipt: " + e.getMessage());
         }
     }
+    public static void displayReceipts() {
+        java.io.File folder = new java.io.File("receipts");
+        java.io.File[] listOfFiles = folder.listFiles();
+        if (!folder.exists() || listOfFiles == null || listOfFiles.length == 0) {
+            System.out.println("No receipts found. You haven't made any sales yet!");
+            return;
+        }
+        System.out.println("Found " + listOfFiles.length + " receipt(s). Printing history...\n");
+        for (java.io.File file : listOfFiles) {
+            System.out.println(">>>> Reading: " + file.getName());
+
+            try (java.util.Scanner fileScanner = new java.util.Scanner(file)) {
+                while (fileScanner.hasNextLine()) {
+                    System.out.println(fileScanner.nextLine());
+                }
+            } catch (java.io.FileNotFoundException e) {
+                System.out.println("[ERROR] Could not read " + file.getName());
+            }
+            System.out.println("\n");
+        }
+    }
 }
