@@ -1,11 +1,12 @@
 package org.example;
-
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class HomeScreen {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        printWelcomeHeader();
         Menu menu = new Menu();
         Cart cart = new Cart();
 
@@ -24,14 +25,31 @@ public class HomeScreen {
             System.out.println("99) Exit Application!");
             System.out.print("Select an option: ");
 
-
             String choice = scanner.nextLine();
-
 
             switch (choice) {
                 case "1":
-
-                    System.out.println("Opening Signature Menu...");
+                    List<SignatureTaco> sigs = menu.getSignatureMenu();
+                    System.out.println("\n--- SIGNATURE MENU ---");
+                    for(int i = 0; i < sigs.size(); i++){
+                        System.out.println((i + 1) + ") " + sigs.get(i).getname());
+                    }
+                    System.out.println("Enter signature taco you would you like to add: ");
+                    String tacoChoice = scanner.nextLine();
+                    int index;
+                    try{
+                        index = Integer.parseInt(tacoChoice) -1;
+                        if(index < 0 || index >= sigs.size()){
+                            System.out.println("Invalid Choice");
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        System.out.println("Enter valid menu number(1 -3)");
+                        break;
+                    }
+                    SignatureTaco selected = sigs.get(index);
+                    cart.addToCart(selected);
+                    System.out.println(selected.getname() + " added to cart!");
                     break;
 
                 case "2":
@@ -65,25 +83,19 @@ public class HomeScreen {
                     System.out.println("\n=== CHECKOUT ===");
                     System.out.print("Enter Customer Name: ");
                     String customerName = scanner.nextLine();
-
                     System.out.print("Enter Payment Method (Cash, Credit, Debit): ");
                     String paymentInput = scanner.nextLine().toUpperCase();
                     PaymentType paymentMethod = PaymentType.valueOf(paymentInput);
                     Order finalOrder = new Order(customerName, paymentMethod, new ArrayList<>(cart.getItems()));
-
+                    finalOrder.setOrderTime(java.time.LocalDateTime.now());
                     if (!finalOrder.isValidOrder()) {
                         System.out.println("\n[ERROR] Invalid Order!");
-                        System.out.println("If you order 0 tacos, you MUST purchase chips & salsa or a drink.");
+                        System.out.println("You have 0 tacos, you MUST purchase chips & salsa or a drink.");
                         System.out.println("Returning to main menu...");
                         break;
                     }
-
-
-
                     System.out.println("\n--- PLEASE REVIEW YOUR ORDER ---");
                     System.out.println(finalOrder.generateReceipt());
-
-
                     System.out.print("Type 'C' to Confirm or 'X' to Cancel: ");
                     String confirmChoice = scanner.nextLine().toUpperCase();
 
@@ -98,7 +110,7 @@ public class HomeScreen {
                     break;
                 case "99":
                     System.out.println("\nThank you for eating with us. Come again!\n");
-                    inOrderMenu = false;
+                    isOrdering = false;
                     //TODO double check if this is properly cased so that it doesn't ruin the boolean.
                     break;
                 default:
