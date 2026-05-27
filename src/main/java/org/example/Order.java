@@ -57,7 +57,6 @@ public class Order {
         }
         return total;
     }
-
     //For when customers don't order any tacos :(
     public boolean isValidOrder() {
         int tacoCount = 0;
@@ -75,20 +74,6 @@ public class Order {
         }
         return true;
     }
-
-//    public String generateReceipt() {
-//        StringBuilder receipt = new StringBuilder();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
-//        String formattedTime = orderTime.format(formatter);
-//
-//        receipt.append("====================================\n");
-//        receipt.append("         BROWN BAG TACOS\n"); // Updated name!
-//        receipt.append("====================================\n");
-//        receipt.append("Customer: ").append(customerName).append("\n");
-//        receipt.append("Date: ").append(formattedTime).append("\n");
-//
-//        return receipt.toString();
-//    }
 public String generateReceipt() {
     AsciiTable table = new AsciiTable();
     table.addRule();

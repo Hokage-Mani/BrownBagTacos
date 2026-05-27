@@ -11,9 +11,7 @@ public class HomeScreen {
         Cart cart = new Cart();
 
         boolean isOrdering = true;
-
         System.out.println("Welcome to the Brown Bag Tacos POS!");
-
         while (isOrdering) {
             System.out.println(ConsoleColors.CYAN + "\n=== MAIN MENU ===" + ConsoleColors.RESET);
             System.out.println("1.) Order a Signature Taco");
@@ -22,11 +20,11 @@ public class HomeScreen {
             System.out.println("4.) View Current Cart");
             System.out.println("5.) Checkout");
             System.out.println("6.) View Past Receipts");
+            System.out.println("7.) Remove Item from Cart");
             System.out.println("99.) Exit Application!");
             System.out.print("Select an option: ");
 
             String choice = scanner.nextLine();
-
             switch (choice) {
                 case "1":
                     List<SignatureTaco> sigs = menu.getSignatureMenu();
@@ -48,14 +46,30 @@ public class HomeScreen {
                         break;
                     }
                     SignatureTaco selected = sigs.get(index);
-                    SignatureTaco tacoForCart = new SignatureTaco(selected.getname(), selected.getSize(), selected.getShell());
-                    for (Topping t : selected.getToppings()) {
-                        tacoForCart.addTopping(t);
+                    System.out.print("How many would you like? (Press Enter for 1): ");
+                    String qtyInput = scanner.nextLine().trim();
+                    int quantity = 1;
+                    if (!qtyInput.isEmpty()) {
+                        try {
+                            quantity = Integer.parseInt(qtyInput);
+                            if (quantity <= 0) quantity = 1;
+                        } catch (NumberFormatException e) {
+                            System.out.println(ConsoleColors.RED + "[ERROR] Invalid number, defaulting to 1." +
+                                    ConsoleColors.RESET);
+                        }
                     }
-                    tacoForCart.setHasSalsa(selected.isHasSalsa());
-                    tacoForCart.setHasQueso(selected.isHasQueso());
-                    cart.addToCart(tacoForCart);
-                    System.out.println(tacoForCart.getname() + " added to cart!");
+                    for (int q = 0; q < quantity; q++) {
+                        SignatureTaco tacoForCart = new SignatureTaco(selected.getname(), selected.getSize(),
+                                selected.getShell());
+                        for (Topping t : selected.getToppings()) {
+                            tacoForCart.addTopping(t);
+                        }
+                        tacoForCart.setHasSalsa(selected.isHasSalsa());
+                        tacoForCart.setHasQueso(selected.isHasQueso());
+                        cart.addToCart(tacoForCart);
+                    }
+                    System.out.println(ConsoleColors.GREEN + "\n[SUCCESS] Added " + quantity + "x " +
+                            selected.getname() + " to cart!" + ConsoleColors.RESET);
                     break;
                 case "2":
                     boolean inOrderMenu = true;
@@ -85,7 +99,7 @@ public class HomeScreen {
                                         } else {
                                             System.out.println(ConsoleColors.RED + "Invalid input. " +
                                                     "Enter a number from the menu." + ConsoleColors.RESET);
-                                            ;
+
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println(ConsoleColors.RED + "Invalid input. " +
@@ -256,6 +270,46 @@ public class HomeScreen {
                     FileManager.displayReceipts();
                     System.out.println("=====================\n");
                     break;
+                case "7":
+                    if (cart.getItems().isEmpty()) {
+                        System.out.println(ConsoleColors.YELLOW + "\nYour cart is already empty!" + ConsoleColors.RESET);
+                        break;
+                    }
+                    System.out.println(ConsoleColors.CYAN + "\n=== REMOVE AN ITEM ===" + ConsoleColors.RESET);
+                    List<Billable> currentItems = cart.getItems();
+                    for (int i = 0; i < currentItems.size(); i++) {
+                        Billable item = currentItems.get(i);
+                        String itemName = "Menu Item";
+                        if (item instanceof SignatureTaco) {
+                            itemName = ((SignatureTaco) item).getname();
+                        } else if (item instanceof Taco) {
+                            itemName = "Custom " + ((Taco) item).getSize() + " Taco";
+                        } else if (item instanceof ChipsAndSalsa) {
+                            itemName = "Chips & Salsa";
+                        } else if (item instanceof Drinks) {
+                            itemName = "Drink";
+                        }
+                        System.out.printf("%d) %s (" + ConsoleColors.YELLOW + "$%.2f" + ConsoleColors.RESET + ")\n", (i + 1), itemName, item.getPrice());
+                    }
+                    System.out.println((currentItems.size() + 1) + ") Go Back / Cancel");
+                    System.out.print("\nEnter the number to remove: ");
+                    try {
+                        int removeChoice = Integer.parseInt(scanner.nextLine());
+                        if (removeChoice == currentItems.size() + 1) {
+                            System.out.println("Cancelled removal.");
+                        } else if (removeChoice >= 1 && removeChoice <= currentItems.size()) {
+                            Billable removedItem = currentItems.remove(removeChoice - 1);
+                            System.out.println(ConsoleColors.GREEN + "[SUCCESS] Item removed from cart!" +
+                                    ConsoleColors.RESET);
+                        } else {
+                            System.out.println(ConsoleColors.RED + "[ERROR] That number is not in the cart." +
+                                    ConsoleColors.RESET);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println(ConsoleColors.RED + "[ERROR] Invalid input. Please type a number." +
+                                ConsoleColors.RESET);
+                    }
+                    break;
                 case "99":
                     System.out.println("\nThank you for eating with us. Come again!\n");
                     isOrdering = false;
@@ -268,7 +322,6 @@ public class HomeScreen {
         }
         scanner.close();
     }
-
     private static void printWelcomeHeader() {
         System.out.println("       .------------------.       ");
         System.out.println("      /                    \\      ");

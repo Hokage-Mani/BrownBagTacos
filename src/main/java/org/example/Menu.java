@@ -21,7 +21,6 @@ public class Menu {
         regularToppings.add(new Topping("Ground Beef", false, 0.00));
         regularToppings.add(new Topping("Grilled Veggies", false, 0.00));
         regularToppings.add(new Topping("Shrimp", false, 0.00));
-
         // Classic Toppings (Included)
         regularToppings.add(new Topping("Lettuce", false, 0.00));
         regularToppings.add(new Topping("Cilantro", false, 0.00));
@@ -30,7 +29,6 @@ public class Menu {
         regularToppings.add(new Topping("Jalapenos", false, 0.00));
         regularToppings.add(new Topping("Pico de Gallo", false, 0.00));
         regularToppings.add(new Topping("Guac", false, 0.00));
-
         // Sauces & Extras (Included)
         regularToppings.add(new Topping("Chipotle Aioli", false, 0.00));
         regularToppings.add(new Topping("Salsa Verde", false, 0.00));
@@ -38,13 +36,11 @@ public class Menu {
         regularToppings.add(new Topping("Salsa Roja", false, 0.00));
         regularToppings.add(new Topping("Lime Wedges", false, 0.00));
         regularToppings.add(new Topping("Crema", false, 0.00));
-
         // Premium Toppings ($1.95 extra)
         premiumToppings.add(new Topping("Steak", true, 1.95));
         premiumToppings.add(new Topping("Barbacoa", true, 1.95));
         premiumToppings.add(new Topping("Lamb", true, 1.95));
     }
-
     private void loadSignatureTacos() {
         //Brown Bag Classic
         SignatureTaco classic = new SignatureTaco("Brown Bag Classic (15 Tacos) our fan favorite delight!)", TacoSize.PARTY_PACK,
@@ -55,7 +51,6 @@ public class Menu {
         classic.addTopping(new Topping("White Rice", false, 0.00));
         classic.addTopping(new Topping("Whole Pinto Beans", false, 0.00));
         signatureMenu.add(classic);
-
         //Every Meat Burrito
         SignatureTaco meatBurrito = new SignatureTaco("Every Meat Burrito- One of One Exotic Flavors!)", TacoSize.BURRITO, ShellType.FLOUR);
         meatBurrito.addTopping(new Topping("Lamb, Camel, Emu, Bison, Python, Wild Boar",
@@ -63,7 +58,6 @@ public class Menu {
         meatBurrito.addTopping(new Topping("Rice", false, 0.00));
         meatBurrito.addTopping(new Topping("Salsa Roja", false, 0.00));
         signatureMenu.add(meatBurrito);
-
         //Gloom Depths Taco (3)
         SignatureTaco gloom = new SignatureTaco("Gloom Depths Taco- To Fuel any brave Hero)", TacoSize.PLATE_OF_3, ShellType.CORN);
         gloom.addTopping(new Topping("BBQ Jackfruit", true, 8.99));
