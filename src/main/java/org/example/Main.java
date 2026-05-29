@@ -1,5 +1,4 @@
 package org.example;
-
 import javax.swing.*;
 import java.awt.Desktop;
 import java.net.URI;
@@ -21,7 +20,6 @@ public class Main {
         } else if (choice == 1) {
             System.out.println("Launching browser...");
             openWebsite();
-
         } else {
             System.out.println("Launcher closed.");
         }

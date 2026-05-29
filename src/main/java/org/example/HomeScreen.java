@@ -9,7 +9,6 @@ public class HomeScreen {
         printWelcomeHeader();
         Menu menu = new Menu();
         Cart cart = new Cart();
-
         boolean isOrdering = true;
         System.out.println("Welcome to the Brown Bag Tacos POS!");
         while (isOrdering) {
